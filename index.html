@@ -174,12 +174,18 @@
   </div>
 
   <script>
-    // Ad-server clickTag convention. Replace with the real destination URL before trafficking.
-    var clickTag = "#REPLACE_CLICK_URL";
-    document.getElementById("clickthrough").addEventListener("click", function (e) {
-      e.preventDefault();
-      window.open(clickTag, "_blank");
-    });
+    // Adapted: Standard global platform variable. 
+    // Fallback landing page supplied if ad server doesn't override it.
+    var clickTag = "https://www.mpi.govt.nz/biosecurity-in-nz/dont-let-bird-flu-take-flight?utm_source=default&utm_medium=Display%20300x250&utm_campaign=Bird%2520Flu&utm_id=MPI001&utm_content=Detected"; 
+
+    // Adapted: Ad server script compatibility for case sensitivity protection
+    var clickThroughTarget = document.getElementById("clickthrough");
+    if (clickThroughTarget) {
+        clickThroughTarget.addEventListener("click", function (e) {
+          e.preventDefault();
+          window.open(window.clickTag || clickTag, "_blank");
+        });
+    }
 
     var frames = [
       document.getElementById("frame1"),
